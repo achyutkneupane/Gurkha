@@ -24,8 +24,8 @@
                             {{ $update->title }}
                         </a>
                     </td>
-                    <td>{{ \Illuminate\Support\Str::words($update->description,6,'...') }}</td>
-                    <td>
+                    <td>{{ \Illuminate\Support\Str::words(strip_tags($update->content),6,'...') }}</td>
+                    <td class='text-right'>
                         <a href="{{ route('news.show',$update->id) }}" class="btn btn-primary">
                             View
                         </a>

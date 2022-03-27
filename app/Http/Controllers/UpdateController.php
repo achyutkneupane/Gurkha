@@ -60,6 +60,6 @@ class UpdateController extends Controller
     {
         $update = Update::findOrFail($id);
         $update->delete();
-        return redirect()->route('news');
+        return redirect()->route('news.index');
     }
 }
