@@ -52,7 +52,7 @@
                                 <dt class="col-sm-3">Phone Number</dt>
                                 <dd class="col-sm-9 row">
                                     <div class='col-md-12'>
-                                        <input type="number" name="phone" value="{{ $user->phone }}"
+                                        <input type="text" name="phone" value="{{ $user->phone }}"
                                             class="form-control @error('phone') is-invalid @enderror"
                                             placeholder="Phone Number" />
                                         @error('phone')
@@ -118,7 +118,7 @@
                                 <dt class="col-sm-3">Passed Year</dt>
                                 <dd class="col-sm-9 row">
                                     <div class='col-md-12'>
-                                        <input type="number" name="see_year" value="{{ $user->see_year }}"
+                                        <input type="text" name="see_year" value="{{ $user->see_year }}"
                                             class="form-control @error('see_year') is-invalid @enderror"
                                             placeholder="Passed Year" />
                                         @error('see_year')
@@ -131,7 +131,7 @@
                                 <dt class="col-sm-3">GPA</dt>
                                 <dd class="col-sm-9 row">
                                     <div class='col-md-12'>
-                                        <input type="number" name="see_gpa" value="{{ $user->see_gpa }}"
+                                        <input type="text" name="see_gpa" value="{{ $user->see_gpa }}"
                                             class="form-control @error('see_gpa') is-invalid @enderror"
                                             placeholder="GPA" />
                                         @error('see_gpa')
