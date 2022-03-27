@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:wght@400,600,700,900" rel="stylesheet">
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @stack('styles')
 </head>
 <body>
     <div id="app">
@@ -19,22 +20,9 @@
         @include('layouts.sidebar')
 
         <div class="content-wrapper">
-            @auth
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">@yield('page_title')</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endauth
-
             <div class="content py-4">
                 @yield('content')
             </div>
-
         </div>
 
         @include('layouts.rightbar')
@@ -48,5 +36,6 @@
         <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="/dist/js/adminlte.min.js"></script>
     @endauth
+    @stack('scripts')
 </body>
 </html>

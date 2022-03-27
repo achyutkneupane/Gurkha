@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Update;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $admin = User::create([
             'name' => 'Admin',
             'email' => 'admin@gurkha.com',
             'email_verified_at' => now(),
@@ -33,5 +34,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'staff',
         ]);
         \App\Models\User::factory(10)->create();
+        $updates = Update::factory(20)->make();
+        $admin->news()->saveMany($updates);
     }
 }

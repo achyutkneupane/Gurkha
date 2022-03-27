@@ -1,8 +1,11 @@
 @auth
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav flex align-items-center gap-3">
             <li class="nav-item">
               <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item align-items-center">
+              <h3 class="m-0">@yield('page_title')</h3>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">

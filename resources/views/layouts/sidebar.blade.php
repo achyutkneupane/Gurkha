@@ -1,5 +1,5 @@
 @auth
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4 position-fixed">
 
         <div class="brand-link text-center display-6">
             <span class="brand-text font-weight-light">GCTC</span>
@@ -13,7 +13,7 @@
                     <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">{{ $user->name }}</a>
+                    <a href="#" class="d-block">{{ auth()->user()->name }}</a>
                 </div>
             </div>
 
@@ -39,10 +39,18 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                        <a href="{{ route('profile.index') }}" class="nav-link{{ request()->routeIs('profile.*') ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-user"></i>
                             <p>
                                 Profile
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('news.index') }}" class="nav-link{{ request()->routeIs('news.*') ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-newspaper"></i>
+                            <p>
+                                News
                             </p>
                         </a>
                     </li>
