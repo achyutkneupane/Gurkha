@@ -74,6 +74,6 @@ class HomeController extends Controller
             'document_link' => ''
         ]);
         Auth::user()->update($validated);
-        return redirect()->route('profile');
+        return redirect()->route('profile.index');
     }
 }
