@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('page_title', 'Add Staff')
+@section('page_title', 'Add Student')
 
 @section('content')
 <div class="container">
@@ -8,7 +8,7 @@
             <form method="POST" action="{{ route('staffs.create.submit') }}" class="card" enctype="multipart/form-data">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
-                        <span>Add Staff</span>
+                        <span>Add Student</span>
                         <button class='btn btn-success'>Add</button>
                     </div>
                 </div>

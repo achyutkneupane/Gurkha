@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UpdateController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -77,13 +78,13 @@ Route::group(['prefix' => 'staff'], function() {
 
 // Students
 Route::group(['prefix' => 'student'], function() {
-    Route::get('/',[StaffController::class,'index'])
+    Route::get('/',[StudentController::class,'index'])
          ->middleware('admin')
-         ->name('staffs.index');
-    Route::get('/create',[StaffController::class,'create'])
+         ->name('students.index');
+    Route::get('/create',[StudentController::class,'create'])
          ->middleware('admin')
-         ->name('staffs.create');
-    Route::post('/create',[StaffController::class,'create_submit'])
+         ->name('students.create');
+    Route::post('/create',[StudentController::class,'create_submit'])
          ->middleware('admin')
-         ->name('staffs.create.submit');
+         ->name('students.create.submit');
 });

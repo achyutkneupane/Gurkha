@@ -11,7 +11,9 @@
                         <span>{{ $update->title }}</span>
                         <div>
                             <a href="{{ route('news.index') }}" class='btn btn-warning'>All News</a>
+                            @if(auth()->user()->role == 'admin' || auth()->user()->role == 'staff')
                             <a href="{{ route('news.edit',$update->id) }}" class='btn btn-success'>Edit</a>
+                            @endif
                         </div>
                     </div>
                 </div>
