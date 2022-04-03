@@ -18,7 +18,7 @@
                 <tbody class="table-light">
                 @forelse ($updates as $update)
                   <tr>
-                    <th scope="row">{{ $update->id }}</th>
+                    <th scope="row">{{ $loop->iteration }}</th>
                     <td>
                         <a href="{{ route('news.show',$update->id) }}" class="link-dark">
                             {{ $update->title }}

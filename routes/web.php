@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UpdateController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -16,19 +18,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('delete/{from}/{id}', [HomeController::class, 'delete_user'])
+     ->middleware('admin')
+     ->name('profile.delete');
+
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+
+
 // Profile
+
 Route::get('/profile', [HomeController::class, 'profile'])->name('profile.index');
-Route::get('/profile/edit', [HomeController::class, 'edit_profile'])->name(
-    'profile.edit'
-);
-Route::post('/profile/edit', [
+Route::get('/profile/{id}', [HomeController::class, 'profile'])->middleware('adminOrStaff')->name('profile.view');
+Route::get('/profile/{id}/edit', [HomeController::class, 'edit_profile'])->name('profile.edit');
+Route::post('/profile/{id}/edit', [
     HomeController::class,
     'edit_profile_submit',
 ])->name('profile.edit.submit');
+
 
 // News
 Route::group(['prefix' => 'news'], function () {
@@ -50,4 +60,31 @@ Route::group(['prefix' => 'news'], function () {
     Route::get('/{id}/delete', [UpdateController::class, 'delete'])
         ->middleware('adminOrStaff')
         ->name('news.delete');
+});
+
+
+// Staff
+Route::group(['prefix' => 'staff'], function() {
+    Route::get('/',[StaffController::class,'index'])
+         ->middleware('admin')
+         ->name('staffs.index');
+    Route::get('/create',[StaffController::class,'create'])
+         ->middleware('admin')
+         ->name('staffs.create');
+    Route::post('/create',[StaffController::class,'create_submit'])
+         ->middleware('admin')
+         ->name('staffs.create.submit');
+});
+
+// Students
+Route::group(['prefix' => 'student'], function() {
+    Route::get('/',[StudentController::class,'index'])
+         ->middleware('admin')
+         ->name('students.index');
+    Route::get('/create',[StudentController::class,'create'])
+         ->middleware('admin')
+         ->name('students.create');
+    Route::post('/create',[StudentController::class,'create_submit'])
+         ->middleware('admin')
+         ->name('students.create.submit');
 });

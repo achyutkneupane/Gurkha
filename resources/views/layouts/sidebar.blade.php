@@ -13,7 +13,7 @@
                     <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+                    <a href="{{ route('profile.index') }}" class="d-block">{{ auth()->user()->name }}</a>
                 </div>
             </div>
 
@@ -54,6 +54,26 @@
                             </p>
                         </a>
                     </li>
+                    @if(auth()->user()->role == 'admin')
+                    <li class="nav-item">
+                        <a href="{{ route('staffs.index') }}" class="nav-link{{ request()->routeIs('staffs.*') ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-users-cog"></i>
+                            <p>
+                                Staffs
+                            </p>
+                        </a>
+                    </li>
+                    @endif
+                    @if (auth()->user()->role == 'staff' || auth()->user()->role == 'admin')
+                    <li class="nav-item">
+                        <a href="{{ route('students.index') }}" class="nav-link{{ request()->routeIs('students.*') ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-user-graduate"></i>
+                            <p>
+                                Students
+                            </p>
+                        </a>
+                    </li>
+                    @endif
                     <li class="nav-item mt-4">
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                           document.getElementById('logout-form').submit();" class="nav-link bg-danger">

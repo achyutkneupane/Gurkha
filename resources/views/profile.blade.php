@@ -9,14 +9,16 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between align-items-center">
                             <span>{{ $user->name }}</span>
-                            <a href="{{ route('profile.edit') }}" class='btn btn-warning'>Edit Profile</a>
+                            @if($user->id == auth()->id())
+                            <a href="{{ route('profile.edit',$user->id) }}" class='btn btn-warning'>Edit Profile</a>
+                            @endif
                         </div>
                     </div>
                     <div class="card-body container">
                         <div class="row align-items-center">
                             <div class="col-md-4 text-center">
                                 <div class='overflow-hidden mx-auto ratio ratio-1x1 col-md-7 w-75'>
-                                    <img src="{{ asset('dist/img/photo1.png') }}" class="img-thumbnail rounded-circle"
+                                    <img src="{{ $user->profile_picture ? $profile : asset('dist/img/photo1.png') }}" class="img-thumbnail rounded-circle"
                                         style="object-fit:cover;" />
                                 </div>
                                 <h4 class='font-bold mt-2'>{{ $user->name }}</h4>
@@ -59,7 +61,8 @@
                                     </dl>
                                     <dl class="row">
                                         <dt class="col-sm-3">Document Link</dt>
-                                        <dd class="col-sm-9">{!! $user->document_link ?? "<span class='text-muted'>N/A</span>" !!}</dd>
+                                        <dd class="col-sm-9">{!! $user->document_link ? "<a href='$document' target='_blank'
+                                            class''>View Document</a>" : "<span class='text-muted'>N/A</span>" !!}</dd>
                                     </dl>
                                 @endif
                             </div>
