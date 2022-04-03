@@ -35,10 +35,10 @@
                                         View
                                     </a>
                                     @if (Auth::user()->role == 'admin')
-                                        <a href="{{ route('staffs.edit',$staff->id) }}" class="btn btn-warning">
+                                        <a href="{{ route('profile.edit',$staff->id) }}" class="btn btn-warning">
                                             Edit
                                         </a>
-                                        <a href="{{ route('staffs.delete',$staff->id) }}" class="btn btn-danger">
+                                        <a href="{{ route('profile.delete',['from' => 'staffs', 'id' => $staff->id]) }}" class="btn btn-danger">
                                             Delete
                                         </a>
                                     @endif

@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <form method="POST" action="{{ route('profile.edit.submit') }}" class="card" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('profile.edit.submit',$user->id) }}" class="card" enctype="multipart/form-data">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                         <span>{{ $user->name }}</span>

@@ -10,7 +10,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <span>{{ $user->name }}</span>
                             @if($user->id == auth()->id())
-                            <a href="{{ route('profile.edit') }}" class='btn btn-warning'>Edit Profile</a>
+                            <a href="{{ route('profile.edit',$user->id) }}" class='btn btn-warning'>Edit Profile</a>
                             @endif
                         </div>
                     </div>

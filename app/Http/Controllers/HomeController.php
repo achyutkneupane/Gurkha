@@ -50,9 +50,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function edit_profile()
+    public function edit_profile($id = NULL)
     {
-        $user = Auth::user();
+        $user = $id ? User::findOrFail($id) : Auth::user();
         $profile = asset(Storage::url($user->profile_picture));
         $document = asset(Storage::url($user->document_link));
         return view('edit-profile',compact('user','profile','document'));
@@ -63,8 +63,9 @@ class HomeController extends Controller
      *
      * @return redirection
      */
-    public function edit_profile_submit(Request $request)
+    public function edit_profile_submit(Request $request,$id = NULL)
     {
+        $user = $id ? User::findOrFail($id) : Auth::user();
         $request->merge([
             'dob' => Carbon::parse($request->dob),
         ]);
@@ -82,16 +83,21 @@ class HomeController extends Controller
             'document_link' => 'nullable',
         ]);
         if($request->hasFile('profile_picture')){
-            // store file in profile_picture and set the file name as profile_picture.auth()->id()
-            // file extension
             $extension = $request->file('profile_picture')->getClientOriginalExtension();
-            $validated['profile_picture'] = $request->file('profile_picture')->storeAs('public/profile_pictures', Auth::id().'_pp_'.time().'.'.$extension);
+            $validated['profile_picture'] = $request->file('profile_picture')->storeAs('public/profile_pictures', $user->id.'_pp_'.time().'.'.$extension);
         }
         if($request->hasFile('document_link')){
             $extension = $request->file('document_link')->getClientOriginalExtension();
-            $validated['document_link'] = $request->file('document_link')->storeAs('public/documents', Auth::id().'_doc_'.time().'.'.$extension);
+            $validated['document_link'] = $request->file('document_link')->storeAs('public/documents', $user->id.'_doc_'.time().'.'.$extension);
         }
-        Auth::user()->update($validated);
+        $user->update($validated);
         return redirect()->route('profile.index');
+    }
+
+    public function delete_user($from,$id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route($from.'.index');
     }
 }

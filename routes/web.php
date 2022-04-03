@@ -17,19 +17,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('delete/{from}/{id}', [HomeController::class, 'delete_user'])
+     ->middleware('admin')
+     ->name('profile.delete');
+
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+
+
 // Profile
 
-Route::get('/profile/edit', [HomeController::class, 'edit_profile'])->name('profile.edit');
-Route::post('/profile/edit', [
+Route::get('/profile', [HomeController::class, 'profile'])->name('profile.index');
+Route::get('/profile/{id}', [HomeController::class, 'profile'])->middleware('adminOrStaff')->name('profile.view');
+Route::get('/profile/{id}/edit', [HomeController::class, 'edit_profile'])->name('profile.edit');
+Route::post('/profile/{id}/edit', [
     HomeController::class,
     'edit_profile_submit',
 ])->name('profile.edit.submit');
-Route::get('/profile/{id}', [HomeController::class, 'profile'])->middleware('adminOrStaff')->name('profile.view');
-Route::get('/profile', [HomeController::class, 'profile'])->name('profile.index');
+
 
 // News
 Route::group(['prefix' => 'news'], function () {
@@ -62,13 +70,20 @@ Route::group(['prefix' => 'staff'], function() {
     Route::get('/create',[StaffController::class,'create'])
          ->middleware('admin')
          ->name('staffs.create');
-    Route::get('/{id}/edit', [StaffController::class, 'edit'])
-        ->middleware('admin')
-        ->name('staffs.edit');
-    Route::post('/{id}/edit', [StaffController::class, 'edit_submit'])
-        ->middleware('admin')
-        ->name('staffs.edit.submit');
-    Route::get('/{id}/delete', [StaffController::class, 'delete'])
-        ->middleware('admin')
-        ->name('staffs.delete');
+    Route::post('/create',[StaffController::class,'create_submit'])
+         ->middleware('admin')
+         ->name('staffs.create.submit');
+});
+
+// Students
+Route::group(['prefix' => 'student'], function() {
+    Route::get('/',[StaffController::class,'index'])
+         ->middleware('admin')
+         ->name('staffs.index');
+    Route::get('/create',[StaffController::class,'create'])
+         ->middleware('admin')
+         ->name('staffs.create');
+    Route::post('/create',[StaffController::class,'create_submit'])
+         ->middleware('admin')
+         ->name('staffs.create.submit');
 });
