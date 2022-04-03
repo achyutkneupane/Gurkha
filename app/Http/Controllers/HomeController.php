@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -34,10 +36,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function profile()
+    public function profile($id = NULL)
     {
-        $user = Auth::user();
-        return view('profile',compact('user'));
+        $user = $id ? User::findOrFail($id) : Auth::user();
+
+        $profile = asset(Storage::url($user->profile_picture));
+        $document = asset(Storage::url($user->document_link));
+        return view('profile',compact('user','profile','document'));
     }
 
     /**
@@ -48,7 +53,9 @@ class HomeController extends Controller
     public function edit_profile()
     {
         $user = Auth::user();
-        return view('edit-profile',compact('user'));
+        $profile = asset(Storage::url($user->profile_picture));
+        $document = asset(Storage::url($user->document_link));
+        return view('edit-profile',compact('user','profile','document'));
     }
 
     /**
@@ -63,6 +70,7 @@ class HomeController extends Controller
         ]);
         $validated = $request->validate([
             'name' => 'required',
+            'profile_picture' => 'nullable',
             'address' => 'required',
             'phone' => 'required',
             'dob' => 'required',
@@ -71,8 +79,18 @@ class HomeController extends Controller
             'see_school' => 'required',
             'see_year' => 'required',
             'see_gpa' => 'required',
-            'document_link' => ''
+            'document_link' => 'nullable',
         ]);
+        if($request->hasFile('profile_picture')){
+            // store file in profile_picture and set the file name as profile_picture.auth()->id()
+            // file extension
+            $extension = $request->file('profile_picture')->getClientOriginalExtension();
+            $validated['profile_picture'] = $request->file('profile_picture')->storeAs('public/profile_pictures', Auth::id().'_pp_'.time().'.'.$extension);
+        }
+        if($request->hasFile('document_link')){
+            $extension = $request->file('document_link')->getClientOriginalExtension();
+            $validated['document_link'] = $request->file('document_link')->storeAs('public/documents', Auth::id().'_doc_'.time().'.'.$extension);
+        }
         Auth::user()->update($validated);
         return redirect()->route('profile.index');
     }

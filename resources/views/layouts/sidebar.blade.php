@@ -54,6 +54,16 @@
                             </p>
                         </a>
                     </li>
+                    @if(auth()->user()->role == 'admin')
+                    <li class="nav-item">
+                        <a href="{{ route('staffs.index') }}" class="nav-link{{ request()->routeIs('staffs.*') ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-users-cog"></i>
+                            <p>
+                                Staffs
+                            </p>
+                        </a>
+                    </li>
+                    @endif
                     <li class="nav-item mt-4">
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                           document.getElementById('logout-form').submit();" class="nav-link bg-danger">
