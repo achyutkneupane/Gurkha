@@ -19,6 +19,9 @@
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
                             <th scope="col">Address</th>
+                            <th scope="col">Father's Name</th>
+                            <th scope="col">Mother's Name</th>
+                            <th scope="col">Phone no</th>
                             <th scope="col">Action</th>
                           </tr>
                         </thead>
@@ -30,6 +33,10 @@
                                 <td>{{ $student->name }}</td>
                                 <td>{{ $student->email }}</td>
                                 <td>{{ $student->address }}</td>
+                                <td>{{ $student->father_name }}</td>
+                                <td>{{ $student->mother_name }}</td>
+                                <td>{{ $student->Phone_Number }}</td>
+
                                 <td class='text-right'>
                                     <a href="{{ route('profile.view',$student->id) }}" class="btn btn-primary">
                                         View
