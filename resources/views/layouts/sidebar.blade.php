@@ -7,7 +7,6 @@
 
 
         <div class="sidebar list-group-item">
-
             <div class="user-panel mt-3 pb-3 mb-3 d-flex w-100 justify-content-center text-center">
                 <h3 class="m-0 p-2">@yield('page_title')</h3>
             </div>
