@@ -18,7 +18,7 @@
                         <div class="row align-items-center">
                             <div class="col-md-4 text-center">
                                 <div class='overflow-hidden mx-auto ratio ratio-1x1 col-md-7 w-75'>
-                                    <img src="{{ $user->profile_picture ? $profile : asset('dist/img/photo1.png') }}" class="img-thumbnail rounded-circle"
+                                    <img src="{{ $user->profile_picture ? $profile : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png' }}" class="img-thumbnail rounded-circle"
                                         style="object-fit:cover;" />
                                 </div>
                                 <h4 class='font-bold mt-2'>{{ $user->name }}</h4>

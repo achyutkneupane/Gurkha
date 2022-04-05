@@ -19,6 +19,9 @@
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
                             <th scope="col">Address</th>
+                            <th scope="col">Father's Name</th>
+                            <th scope="col">Mother's Name</th>
+                            <th scope="col">Phone No.</th>
                             <th scope="col">Action</th>
                           </tr>
                         </thead>
@@ -30,11 +33,14 @@
                                 <td>{{ $student->name }}</td>
                                 <td>{{ $student->email }}</td>
                                 <td>{{ $student->address }}</td>
+                                <td>{{ $student->father_name }}</td>
+                                <td>{{ $student->mother_name }}</td>
+                                <td>{{ $student->phone }}</td>
                                 <td class='text-right'>
                                     <a href="{{ route('profile.view',$student->id) }}" class="btn btn-primary">
                                         View
                                     </a>
-                                    @if (Auth::user()->role == 'admin')
+                                    @if (auth()->user()->role == 'admin' || auth()->user()->role == 'staff')
                                         <a href="{{ route('profile.edit',$student->id) }}" class="btn btn-warning">
                                             Edit
                                         </a>
@@ -45,13 +51,13 @@
                           </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-muted text-center">
+                                <td colspan="8" class="text-muted text-center">
                                     No Student registered
                                 </td>
                             </tr>
                         @endforelse
                             <tr class="text-center">
-                                <td colspan="5">
+                                <td colspan="8">
                                     + <a href="{{ route('students.create') }}" class="link-dark">Create Student</a>
                                 </td>
                             </tr>
