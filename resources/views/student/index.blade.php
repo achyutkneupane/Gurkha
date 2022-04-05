@@ -36,7 +36,6 @@
                                 <td>{{ $student->father_name }}</td>
                                 <td>{{ $student->mother_name }}</td>
                                 <td>{{ $student->Phone_Number }}</td>
-
                                 <td class='text-right'>
                                     <a href="{{ route('profile.view',$student->id) }}" class="btn btn-primary">
                                         View
