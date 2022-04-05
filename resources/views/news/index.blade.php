@@ -29,7 +29,7 @@
                         <a href="{{ route('news.show',$update->id) }}" class="btn btn-primary">
                             View
                         </a>
-                        @if (Auth::user()->role == 'admin')
+                        @if (auth()->user()->role == 'admin' || auth()->user()->role == 'staff')
                             <a href="{{ route('news.edit',$update->id) }}" class="btn btn-warning">
                                 Edit
                             </a>

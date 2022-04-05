@@ -1,93 +1,55 @@
 @auth
-    <aside class="main-sidebar sidebar-dark-primary elevation-4 position-fixed">
+    <aside class="list-group position-fixed top-0 left-0" style="width:20%; height:100vh;">
 
-        <div class="brand-link text-center display-6">
+        <div class="brand-link text-center display-6 list-group-item">
             <span class="brand-text font-weight-light">GCTC</span>
         </div>
 
 
-        <div class="sidebar">
+        <div class="sidebar list-group-item">
 
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                </div>
-                <div class="info">
-                    <a href="{{ route('profile.index') }}" class="d-block">{{ auth()->user()->name }}</a>
-                </div>
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex w-100 justify-content-center text-center">
+                <h3 class="m-0 p-2">@yield('page_title')</h3>
             </div>
-
-            {{-- <div class="form-inline">
-            <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-sidebar">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
-                </div>
-            </div>
-        </div> --}}
 
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item">
-                        <a href="{{ route('home') }}" class="nav-link{{ request()->routeIs('home') ? ' active' : '' }}">
-                            <i class="nav-icon fas fa-home"></i>
-                            <p>
-                                Dashboard
-                            </p>
+                <ul class="list-group" data-widget="treeview" role="menu" data-accordion="false">
+                    <a class="list-group-item{{ request()->routeIs('home') ? ' active' : '' }}"
+                        href="{{ route('home') }}">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <a class="list-group-item{{ request()->routeIs('profile.*') ? ' active' : '' }}"
+                        href="{{ route('profile.index') }}">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
+                    <a class="list-group-item{{ request()->routeIs('news.*') ? ' active' : '' }}"
+                        href="{{ route('news.index') }}">
+                        <i class="fas fa-newspaper"></i> News
+                    </a>
+                    @if (auth()->user()->role == 'admin')
+                        <a class="list-group-item{{ request()->routeIs('staffs.*') ? ' active' : '' }}"
+                            href="{{ route('staffs.index') }}">
+                            <i class="fas fa-users-cog"></i> Staffs
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('profile.index') }}" class="nav-link{{ request()->routeIs('profile.*') ? ' active' : '' }}">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>
-                                Profile
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('news.index') }}" class="nav-link{{ request()->routeIs('news.*') ? ' active' : '' }}">
-                            <i class="nav-icon fas fa-newspaper"></i>
-                            <p>
-                                News
-                            </p>
-                        </a>
-                    </li>
-                    @if(auth()->user()->role == 'admin')
-                    <li class="nav-item">
-                        <a href="{{ route('staffs.index') }}" class="nav-link{{ request()->routeIs('staffs.*') ? ' active' : '' }}">
-                            <i class="nav-icon fas fa-users-cog"></i>
-                            <p>
-                                Staffs
-                            </p>
-                        </a>
-                    </li>
                     @endif
-                    @if (auth()->user()->role == 'staff' || auth()->user()->role == 'admin')
-                    <li class="nav-item">
-                        <a href="{{ route('students.index') }}" class="nav-link{{ request()->routeIs('students.*') ? ' active' : '' }}">
-                            <i class="nav-icon fas fa-user-graduate"></i>
-                            <p>
-                                Students
-                            </p>
+                    @if (auth()->user()->role == 'staff')
+                        <a class="list-group-item{{ request()->routeIs('students.*') ? ' active' : '' }}"
+                            href="{{ route('students.index') }}">
+                            <i class="fas fa-user-graduate"></i> Students
                         </a>
-                    </li>
                     @endif
-                    <li class="nav-item mt-4">
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                          document.getElementById('logout-form').submit();" class="nav-link bg-danger">
-                            <i class="nav-icon fas fa-sign-out-alt"></i>
-                            <p>
-                                Logout
-                            </p>
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </li>
                 </ul>
             </nav>
+        </div>
+        <div class="brand-link text-center list-group-item">
+            <a class="list-group-item list-group-item-action list-group-item-danger" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                                              document.getElementById('logout-form').submit();">
+                <i class="fas fa-sign-out-alt"></i> Logout
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </a>
         </div>
     </aside>
 @endauth

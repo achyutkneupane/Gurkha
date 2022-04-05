@@ -96,8 +96,19 @@ class HomeController extends Controller
 
     public function delete_user($from,$id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
-        return redirect()->route($from.'.index');
+        if($from == 'staffs'){
+            if(auth()->user()->role == 'admin') {
+                $user = User::findOrFail($id);
+                $user->delete();
+            }
+            return redirect()->route('staffs.index');
+        }
+        if($from == 'students'){
+            if(auth()->user()->role == 'staff') {
+                $user = User::findOrFail($id);
+                $user->delete();
+            }
+            return redirect()->route('students.index');
+        }
     }
 }

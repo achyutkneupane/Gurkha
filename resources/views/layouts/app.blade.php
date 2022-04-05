@@ -16,16 +16,13 @@
 </head>
 <body>
     <div id="app">
-        @include('layouts.navbar')
-        @include('layouts.sidebar')
+            @include('layouts.sidebar')
 
-        <div class="content-wrapper">
-            <div class="content py-4">
+        <div class="content-wrapper" style="@auth margin-left: 20%; @endauth">
+            <div class="content pt-4" style="padding-bottom: 50px;">
                 @yield('content')
             </div>
         </div>
-
-        @include('layouts.rightbar')
         @include('layouts.footer')
     </div>
 

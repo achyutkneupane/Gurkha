@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('page_title', 'Edit News')
+@section('page_title', $update->title)
 
 @section('content')
 <div class="container">

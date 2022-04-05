@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('delete/{from}/{id}', [HomeController::class, 'delete_user'])
-     ->middleware('admin')
+     ->middleware('adminOrStaff')
      ->name('profile.delete');
 
 Auth::routes();
@@ -79,12 +79,12 @@ Route::group(['prefix' => 'staff'], function() {
 // Students
 Route::group(['prefix' => 'student'], function() {
     Route::get('/',[StudentController::class,'index'])
-         ->middleware('admin')
+         ->middleware('staff')
          ->name('students.index');
     Route::get('/create',[StudentController::class,'create'])
-         ->middleware('admin')
+         ->middleware('staff')
          ->name('students.create');
     Route::post('/create',[StudentController::class,'create_submit'])
-         ->middleware('admin')
+         ->middleware('staff')
          ->name('students.create.submit');
 });
