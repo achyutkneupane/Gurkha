@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UpdateController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,27 +20,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::get('delete/{from}/{id}', [HomeController::class, 'delete_user'])
-     ->middleware('adminOrStaff')
-     ->name('profile.delete');
+    ->middleware('adminOrStaff')
+    ->name('profile.delete');
 
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-
-
 // Profile
 
-Route::get('/profile', [HomeController::class, 'profile'])->name('profile.index');
-Route::get('/profile/{id}', [HomeController::class, 'profile'])->middleware('adminOrStaff')->name('profile.view');
-Route::get('/profile/{id}/edit', [HomeController::class, 'edit_profile'])->name('profile.edit');
+Route::get('/profile', [HomeController::class, 'profile'])->name(
+    'profile.index'
+);
+Route::get('/profile/{id}', [HomeController::class, 'profile'])
+    ->middleware('adminOrStaff')
+    ->name('profile.view');
+Route::get('/profile/{id}/edit', [HomeController::class, 'edit_profile'])->name(
+    'profile.edit'
+);
 Route::post('/profile/{id}/edit', [
     HomeController::class,
     'edit_profile_submit',
 ])->name('profile.edit.submit');
-
 
 // News
 Route::group(['prefix' => 'news'], function () {
@@ -49,8 +53,7 @@ Route::group(['prefix' => 'news'], function () {
     Route::post('/create', [UpdateController::class, 'create_submit'])
         ->middleware('adminOrStaff')
         ->name('news.create.submit');
-    Route::get('/{id}', [UpdateController::class, 'show'])
-        ->name('news.show');
+    Route::get('/{id}', [UpdateController::class, 'show'])->name('news.show');
     Route::get('/{id}/edit', [UpdateController::class, 'edit'])
         ->middleware('adminOrStaff')
         ->name('news.edit');
@@ -62,29 +65,46 @@ Route::group(['prefix' => 'news'], function () {
         ->name('news.delete');
 });
 
-
 // Staff
-Route::group(['prefix' => 'staff'], function() {
-    Route::get('/',[StaffController::class,'index'])
-         ->middleware('admin')
-         ->name('staffs.index');
-    Route::get('/create',[StaffController::class,'create'])
-         ->middleware('admin')
-         ->name('staffs.create');
-    Route::post('/create',[StaffController::class,'create_submit'])
-         ->middleware('admin')
-         ->name('staffs.create.submit');
+Route::group(['prefix' => 'staff'], function () {
+    Route::get('/', [StaffController::class, 'index'])
+        ->middleware('admin')
+        ->name('staffs.index');
+    Route::get('/create', [StaffController::class, 'create'])
+        ->middleware('admin')
+        ->name('staffs.create');
+    Route::post('/create', [StaffController::class, 'create_submit'])
+        ->middleware('admin')
+        ->name('staffs.create.submit');
 });
 
 // Students
-Route::group(['prefix' => 'student'], function() {
-    Route::get('/',[StudentController::class,'index'])
-         ->middleware('staff')
-         ->name('students.index');
-    Route::get('/create',[StudentController::class,'create'])
-         ->middleware('staff')
-         ->name('students.create');
-    Route::post('/create',[StudentController::class,'create_submit'])
-         ->middleware('staff')
-         ->name('students.create.submit');
+Route::group(['prefix' => 'student'], function () {
+    Route::get('/', [StudentController::class, 'index'])
+        ->middleware('staff')
+        ->name('students.index');
+    Route::get('/create', [StudentController::class, 'create'])
+        ->middleware('staff')
+        ->name('students.create');
+    Route::post('/create', [StudentController::class, 'create_submit'])
+        ->middleware('staff')
+        ->name('students.create.submit');
 });
+
+// Notifications
+Route::get('/notifications', [NotificationController::class, 'index'])->name(
+    'notifications.index'
+);
+Route::get('/notification/{id}/read', [
+    NotificationController::class,
+    'markAsRead',
+])->name('notifications.seen');
+
+// All users
+Route::get('/users', [UserController::class, 'index'])
+    ->middleware('admin')
+    ->name('users.index');
+// Change user role
+Route::get('/change-role/{id}/{role}', [UserController::class, 'changeRole'])
+    ->middleware('admin')
+    ->name('users.change.role');
