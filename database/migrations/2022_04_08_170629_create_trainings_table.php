@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('trainings', function (Blueprint $table) {
             $table->id();
+            $table->enum('type', array('physical','educational'))->default('physical');
+            $table->string('title');
+            $table->dateTime('for_date');
+            $table->enum('shift', array('morning','evening'))->default('morning');
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }
