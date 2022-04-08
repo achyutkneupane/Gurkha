@@ -20,6 +20,7 @@
 
         <div class="content-wrapper" style="@auth margin-left: 20%; @endauth">
             <div class="content pt-4" style="padding-bottom: 50px;">
+                @include('layouts.notices')
                 @yield('content')
             </div>
         </div>

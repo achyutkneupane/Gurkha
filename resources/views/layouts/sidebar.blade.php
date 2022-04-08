@@ -25,6 +25,14 @@
                         href="{{ route('news.index') }}">
                         <i class="fas fa-newspaper"></i> News
                     </a>
+                    @if(auth()->user()->role == 'user')
+
+                    <a class="list-group-item{{ request()->routeIs('notifications.*') ? ' active' : '' }}"
+                        href="{{ route('notifications.index') }}">
+                        <i class="fas fa-bell"></i> Notifications
+                        @if(auth()->user()->unreadNotificationsCount() > 0) <span class="badge badge-danger bg-danger">{{ auth()->user()->unreadNotificationsCount() }}</span> @endif
+                    </a>
+                    @endif
                     @if (auth()->user()->role == 'admin')
                         <a class="list-group-item{{ request()->routeIs('staffs.*') ? ' active' : '' }}"
                             href="{{ route('staffs.index') }}">
@@ -35,6 +43,12 @@
                         <a class="list-group-item{{ request()->routeIs('students.*') ? ' active' : '' }}"
                             href="{{ route('students.index') }}">
                             <i class="fas fa-user-graduate"></i> Students
+                        </a>
+                    @endif
+                    @if (auth()->user()->role == 'admin')
+                        <a class="list-group-item{{ request()->routeIs('users.*') ? ' active' : '' }}"
+                            href="{{ route('users.index') }}">
+                            <i class="fas fa-users"></i> Users
                         </a>
                     @endif
                 </ul>

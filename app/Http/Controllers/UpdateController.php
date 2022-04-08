@@ -27,6 +27,13 @@ class UpdateController extends Controller
             'content' => 'required',
         ]);
         $update = auth()->user()->news()->create($validated);
+        $users = \App\Models\User::where('role', 'user')->get();
+        foreach ($users as $user) {
+            $user->notifications()->create([
+                'message' => 'Update about '.$update->title.' has been created',
+                'link' => route('news.show', $update->id),
+            ]);
+        }
         return redirect()->route('news.show', $update->id);
     }
 
