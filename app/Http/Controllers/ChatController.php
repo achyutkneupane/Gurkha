@@ -26,6 +26,6 @@ class ChatController extends Controller
             'to_user_id' => $request->to_user_id,
             'message' => $request->message
         ]);
-        return redirect()->back();
+        return redirect()->route('chats.show', $request->to_user_id);
     }
 }
