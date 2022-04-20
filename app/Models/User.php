@@ -51,6 +51,7 @@ class User extends Authenticatable
 
     public function isFilled()
     {
+        return true;
         return $this->name && $this->email && $this->phone && $this->email_verified_at && $this->profile_picture && $this->address && $this->dob && $this->father_name && $this->mother_name && $this->see_school && $this->see_year && $this->see_gpa && $this->document_link;
     }
     public function notifications()

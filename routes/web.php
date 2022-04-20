@@ -116,4 +116,11 @@ Route::get('/chats/{id}', [ChatController::class, 'show'])->middleware('auth')->
 Route::post('/chats/create', [ChatController::class, 'create'])->middleware('auth')->name('chats.create');
 
 // Training
+
 Route::get('/trainings', [TrainingController::class, 'index'])->middleware('admin')->name('trainings.index');
+Route::get('/trainings/create', [TrainingController::class, 'create'])->middleware('admin')->name('trainings.create');
+Route::post('/trainings', [TrainingController::class, 'list'])->middleware('admin')->name('trainings.list');
+Route::post('/trainings/store', [TrainingController::class, 'store'])->middleware('admin')->name('trainings.store');
+Route::get('/trainings/{training}', [TrainingController::class, 'show'])->middleware('admin')->name('trainings.show');
+Route::get('/trainings/{training}/attendance', [TrainingController::class, 'attendance'])->middleware('admin')->name('trainings.attendance');
+Route::post('/trainings/attendance', [TrainingController::class, 'storeAttendance'])->middleware('admin')->name('trainings.attendance.store');
