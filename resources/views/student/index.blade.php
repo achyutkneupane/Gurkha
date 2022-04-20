@@ -49,13 +49,13 @@
                           </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-muted text-center">
+                                <td colspan="7" class="text-muted text-center">
                                     No Student registered
                                 </td>
                             </tr>
                         @endforelse
                             <tr class="text-center">
-                                <td colspan="8">
+                                <td colspan="7">
                                     + <a href="{{ route('students.create') }}" class="link-dark">Create Student</a>
                                 </td>
                             </tr>
