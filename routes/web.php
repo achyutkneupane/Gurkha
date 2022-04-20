@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UpdateController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -30,23 +32,19 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Profile
 
-Route::get('/profile', [HomeController::class, 'profile'])->name(
-    'profile.index'
-);
+Route::get('/profile', [HomeController::class, 'profile'])->middleware('auth')->name('profile.index');
 Route::get('/profile/{id}', [HomeController::class, 'profile'])
     ->middleware('adminOrStaff')
     ->name('profile.view');
-Route::get('/profile/{id}/edit', [HomeController::class, 'edit_profile'])->name(
-    'profile.edit'
-);
+Route::get('/profile/{id}/edit', [HomeController::class, 'edit_profile'])->middleware('auth')->name('profile.edit');
 Route::post('/profile/{id}/edit', [
     HomeController::class,
     'edit_profile_submit',
-])->name('profile.edit.submit');
+])->middleware('auth')->name('profile.edit.submit');
 
 // News
 Route::group(['prefix' => 'news'], function () {
-    Route::get('/', [UpdateController::class, 'index'])->name('news.index');
+    Route::get('/', [UpdateController::class, 'index'])->middleware('auth')->name('news.index');
     Route::get('/create', [UpdateController::class, 'create'])
         ->middleware('adminOrStaff')
         ->name('news.create');
@@ -92,13 +90,13 @@ Route::group(['prefix' => 'student'], function () {
 });
 
 // Notifications
-Route::get('/notifications', [NotificationController::class, 'index'])->name(
+Route::get('/notifications', [NotificationController::class, 'index'])->middleware('auth')->name(
     'notifications.index'
 );
 Route::get('/notification/{id}/read', [
     NotificationController::class,
     'markAsRead',
-])->name('notifications.seen');
+])->middleware('auth')->name('notifications.seen');
 
 // All users
 Route::get('/users', [UserController::class, 'index'])
@@ -108,3 +106,19 @@ Route::get('/users', [UserController::class, 'index'])
 Route::get('/change-role/{id}/{role}', [UserController::class, 'changeRole'])
     ->middleware('admin')
     ->name('users.change.role');
+
+
+// Chats
+Route::get('/chats', [ChatController::class, 'index'])->middleware('auth')->name('chats.index');
+Route::get('/chats/{id}', [ChatController::class, 'show'])->middleware('auth')->name('chats.show');
+Route::post('/chats/create', [ChatController::class, 'create'])->middleware('auth')->name('chats.create');
+
+// Training
+
+Route::get('/trainings', [TrainingController::class, 'index'])->middleware('admin')->name('trainings.index');
+Route::get('/trainings/create', [TrainingController::class, 'create'])->middleware('admin')->name('trainings.create');
+Route::post('/trainings', [TrainingController::class, 'list'])->middleware('admin')->name('trainings.list');
+Route::post('/trainings/store', [TrainingController::class, 'store'])->middleware('admin')->name('trainings.store');
+Route::get('/trainings/{training}', [TrainingController::class, 'show'])->middleware('admin')->name('trainings.show');
+Route::get('/trainings/{training}/attendance', [TrainingController::class, 'attendance'])->middleware('admin')->name('trainings.attendance');
+Route::post('/trainings/attendance', [TrainingController::class, 'storeAttendance'])->middleware('admin')->name('trainings.attendance.store');

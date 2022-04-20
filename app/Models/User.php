@@ -42,6 +42,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Update::class);
     }
+    public function chatsSent() {
+        return $this->hasMany(Chat::class, 'from_user_id');
+    }
+    public function chatsReceived() {
+        return $this->hasMany(Chat::class, 'to_user_id');
+    }
 
     public function isFilled()
     {
@@ -54,5 +60,32 @@ class User extends Authenticatable
     public function unreadNotificationsCount()
     {
         return $this->notifications()->whereNull('seen_at')->count();
+    }
+    public function chats() {
+        return Chat::where('from_user_id',$this->id)->orWhere('to_user_id',$this->id);
+    }
+    public function allChats() {
+        $endUser = NULL;
+        $chats = $this->chats()->get()->map(function ($chat,$key) use ($endUser) {
+            if($chat->from_user_id == auth()->id()) {
+                $endUser = User::find($chat->to_user_id);
+            } else {
+                $endUser = User::find($chat->from_user_id);
+            }
+            return $endUser;
+        })->filter(function ($user) {
+            return ($user->id != auth()->id());
+        })->unique();
+        return $chats;
+    }
+    public function chatsWith($id) {
+        $senderId = $this->id;
+        $receiverId = $id;
+        $chats = Chat::where(function($chat) use($senderId,$receiverId) {
+            return $chat->where('from_user_id',$senderId)->where('to_user_id',$receiverId);
+        })->orWhere(function($chat) use($senderId,$receiverId){
+            return $chat->where('from_user_id',$receiverId)->where('to_user_id',$senderId);
+        });
+        return $chats;
     }
 }
