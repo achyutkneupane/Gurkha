@@ -65,6 +65,18 @@
                                             class''>View Document</a>" : "<span class='text-muted'>N/A</span>" !!}</dd>
                                     </dl>
                                 @endif
+                                @if((auth()->user()->role == 'admin' || auth()->user()->role == 'staff') && $user != auth()->user())
+                                    <h4 class='uppercase my-2'>Send Message</h4>
+                                    <form action="{{ route('chats.create') }}" method="POST" class="">
+                                        @csrf
+                                        <input type="hidden" name="to_user_id" value="{{ $user->id }}">
+                                        <div class="form-group">
+                                            <label for="message">Message</label>
+                                            <textarea class="form-control" name="message" id="message" rows="3"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100 mt-2">Send</button>
+                                    </form>
+                                @endif
                             </div>
                         </div>
                     </div>

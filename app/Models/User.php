@@ -66,7 +66,7 @@ class User extends Authenticatable
     }
     public function allChats() {
         $endUser = NULL;
-        $chats = $this->chats()->get()->map(function ($chat,$key) use ($endUser) {
+        $chats = $this->chats()->orderByDesc('created_at')->get()->map(function ($chat,$key) use ($endUser) {
             if($chat->from_user_id == auth()->id()) {
                 $endUser = User::find($chat->to_user_id);
             } else {
