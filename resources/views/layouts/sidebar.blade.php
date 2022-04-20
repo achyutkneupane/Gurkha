@@ -25,13 +25,19 @@
                         href="{{ route('news.index') }}">
                         <i class="fas fa-newspaper"></i> News
                     </a>
-                    @if(auth()->user()->role == 'user')
-
-                    <a class="list-group-item{{ request()->routeIs('notifications.*') ? ' active' : '' }}"
-                        href="{{ route('notifications.index') }}">
-                        <i class="fas fa-bell"></i> Notifications
-                        @if(auth()->user()->unreadNotificationsCount() > 0) <span class="badge badge-danger bg-danger">{{ auth()->user()->unreadNotificationsCount() }}</span> @endif
+                    <a class="list-group-item{{ request()->routeIs('chats.*') ? ' active' : '' }}"
+                        href="{{ route('chats.index') }}">
+                        <i class="fas fa-comment"></i> Chats
                     </a>
+                    @if (auth()->user()->role == 'user')
+                        <a class="list-group-item{{ request()->routeIs('notifications.*') ? ' active' : '' }}"
+                            href="{{ route('notifications.index') }}">
+                            <i class="fas fa-bell"></i> Notifications
+                            @if (auth()->user()->unreadNotificationsCount() > 0)
+                                <span
+                                    class="badge badge-danger bg-danger">{{ auth()->user()->unreadNotificationsCount() }}</span>
+                            @endif
+                        </a>
                     @endif
                     @if (auth()->user()->role == 'admin')
                         <a class="list-group-item{{ request()->routeIs('staffs.*') ? ' active' : '' }}"
@@ -50,6 +56,11 @@
                             href="{{ route('users.index') }}">
                             <i class="fas fa-users"></i> Users
                         </a>
+
+                        <a class="list-group-item{{ request()->routeIs('trainings.*') ? ' active' : '' }}"
+                            href="{{ route('trainings.index') }}">
+                            <i class="fas fa-running"></i> Trainings
+                        </a>
                     @endif
                 </ul>
             </nav>
@@ -57,7 +68,7 @@
         <div class="brand-link text-center list-group-item">
             <a class="list-group-item list-group-item-action list-group-item-danger" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
-                                              document.getElementById('logout-form').submit();">
+                                                  document.getElementById('logout-form').submit();">
                 <i class="fas fa-sign-out-alt"></i> Logout
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
