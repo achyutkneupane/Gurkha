@@ -18,7 +18,7 @@
                                     @csrf
                                     <input type="hidden" name="type" value="all">
                                     <input type="hidden" name="shift" value="{{ $shift }}">
-                                    <button class="btn btn-primary">
+                                    <button class="btn @if($type == 'all') btn-primary @else btn-outline-primary @endif">
                                         All
                                     </button>
                                 </form>
@@ -26,7 +26,7 @@
                                     @csrf
                                     <input type="hidden" name="type" value="physical">
                                     <input type="hidden" name="shift" value="{{ $shift }}">
-                                    <button class="btn btn-primary">
+                                    <button class="btn @if($type == 'physical') btn-primary @else btn-outline-primary @endif">
                                         Physical
                                     </button>
                                 </form>
@@ -34,7 +34,7 @@
                                     @csrf
                                     <input type="hidden" name="type" value="educational">
                                     <input type="hidden" name="shift" value="{{ $shift }}">
-                                    <button class="btn btn-primary">
+                                    <button class="btn @if($type == 'educational') btn-primary @else btn-outline-primary @endif">
                                         Educational
                                     </button>
                                 </form>
@@ -44,7 +44,7 @@
                                     @csrf
                                     <input type="hidden" name="shift" value="all">
                                     <input type="hidden" name="type" value="{{ $type }}">
-                                    <button class="btn btn-primary">
+                                    <button class="btn @if($shift == 'all') btn-primary @else btn-outline-primary @endif">
                                         All
                                     </button>
                                 </form>
@@ -52,7 +52,7 @@
                                     @csrf
                                     <input type="hidden" name="shift" value="morning">
                                     <input type="hidden" name="type" value="{{ $type }}">
-                                    <button class="btn btn-primary">
+                                    <button class="btn @if($shift == 'morning') btn-primary @else btn-outline-primary @endif">
                                         Morning
                                     </button>
                                 </form>
@@ -60,7 +60,7 @@
                                     @csrf
                                     <input type="hidden" name="shift" value="evening">
                                     <input type="hidden" name="type" value="{{ $type }}">
-                                    <button class="btn btn-primary">
+                                    <button class="btn @if($shift == 'evening') btn-primary @else btn-outline-primary @endif">
                                         Evening
                                     </button>
                                 </form>
