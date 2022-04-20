@@ -7,6 +7,7 @@
         <div class="col-md-8">
             <form action="{{ route('trainings.attendance.store') }}" method="POST" class="card">
                 @csrf
+                <input type="hidden" name="training_id" value="{{ $training->id }}">
                 <div class="card-header d-flex flex-row justify-content-between align-items-center">
                     @yield('page_title')
                     <button class="btn btn-success">Save</button>

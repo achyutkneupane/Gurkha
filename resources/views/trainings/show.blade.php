@@ -9,7 +9,7 @@
                 @csrf
                 <div class="card-header d-flex flex-row justify-content-between align-items-center">
                     @yield('page_title')
-                    <a class="btn btn-primary" href="{{ route('trainings.attendance',$training) }}">Take Attendance</a>
+                    @if(!$training->completed)<a class="btn btn-primary" href="{{ route('trainings.attendance',$training) }}">Take Attendance</a>@endif
                 </div>
                 <div class="card-body container">
                     <div class="row">
@@ -35,6 +35,22 @@
                                 <dd class="col-sm-9">{!! $training->completed ? "<span class='badge bg-success'>Completed</span>" : "<span class='badge bg-warning text-dark'>Not Completed</span>" !!}</dd>
                             </dl>
                         </div>
+                        @if($training->completed)
+                        <hr />
+                        <div class="col-md-12">
+                            <h5>Attendance</h5>
+                            @foreach($training->attendance as $attendance)
+                            <div class="border p-2 d-flex flex-row justify-content-between align-items-center">
+                                <div>
+                                    {{ $attendance->user->name }}
+                                </div>
+                                <div>
+                                    {!! $attendance->attended ? "<span class='badge bg-success'>Present</span>" : "<span class='badge bg-danger'>Absent</span>" !!}
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

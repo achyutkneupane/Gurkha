@@ -18,4 +18,12 @@ class Training extends Model
             $builder->orderBy('completed', 'asc')->orderBy('for_date', 'asc');
         });
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function attendance()
+    {
+        return $this->hasMany(Attendance::class);
+    }
 }
