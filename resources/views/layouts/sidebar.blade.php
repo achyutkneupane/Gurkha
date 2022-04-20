@@ -56,7 +56,6 @@
                             href="{{ route('users.index') }}">
                             <i class="fas fa-users"></i> Users
                         </a>
-
                         <a class="list-group-item{{ request()->routeIs('trainings.*') ? ' active' : '' }}"
                             href="{{ route('trainings.index') }}">
                             <i class="fas fa-running"></i> Trainings

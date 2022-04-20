@@ -36,9 +36,7 @@ Route::get('/profile', [HomeController::class, 'profile'])->middleware('auth')->
 Route::get('/profile/{id}', [HomeController::class, 'profile'])
     ->middleware('adminOrStaff')
     ->name('profile.view');
-Route::get('/profile/{id}/edit', [HomeController::class, 'edit_profile'])->middleware('auth')->name(
-    'profile.edit'
-);
+Route::get('/profile/{id}/edit', [HomeController::class, 'edit_profile'])->middleware('auth')->name('profile.edit');
 Route::post('/profile/{id}/edit', [
     HomeController::class,
     'edit_profile_submit',
