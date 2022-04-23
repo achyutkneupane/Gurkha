@@ -16,13 +16,14 @@
                     <div class="row align-items-center">
                         <div class="col-md-4 text-center">
                             <div class='overflow-hidden mx-auto ratio ratio-1x1 col-md-7 w-75'>
-                                <img src="{{ $user->profile_picture ? $profile : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png' }}" class="img-thumbnail rounded-circle"
+                                <img src="{{ $user->profile_picture ? $profile : 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png' }}" class="img-thumbnail rounded-circle" id="profilePicture"
                                         style="object-fit:cover;" />
                             </div>
                             <div class="mt-4">
                                 <input type="file" hidden id="profile_picture" name="profile_picture" value="{{ old('profile_picture',$user->profile_picture) }}"
-                                        class="form-control @error('profile_picture') is-invalid @enderror" />
-                                <input type="button" class='btn btn-primary' id="profile_picture_file" name="profile_picture_file" value="Change">
+                                        class="form-control @error('profile_picture') is-invalid @enderror" 
+                                        onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
+                                <input type="button" class='btn btn-primary' id="profile_picture_file" name="profile_picture_file" value="Change" onclick="document.getElementById('profile_picture').click()">
                                 @error('profile_picture')
                                     <div class="text-danger mt-1">{{ $message }}</div>
                                 @enderror
@@ -100,7 +101,7 @@
                                 <dd class="col-sm-9 row">
                                     <div class='col-md-12'>
                                         <input name='dob' id="datepicker" name="dob" value="{{ \Carbon\Carbon::parse(old('dob',$user->dob))->format('m/d/Y') }}"
-                                            placeholder="MM/DD/YYY" type="text"
+                                            placeholder="MM/DD/YYY" type="date"
                                             class="form-control @error('dob') is-invalid @enderror" />
                                         @error('dob')
                                         <div class="text-danger mt-1">{{ $message }}</div>
@@ -174,21 +175,3 @@
     </div>
 </div>
 @endsection
-
-@push('styles')
-<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-@endpush
-
-@push('scripts')
-<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-<script>
-    $('#datepicker').datepicker({
-            uiLibrary: 'bootstrap4'
-        });
-    document.getElementById('profile_picture_file').addEventListener('click', submitProfile);
-    function submitProfile() {
-        document.getElementById('profile_picture').click();
-    }
-</script>
-
-@endpush
