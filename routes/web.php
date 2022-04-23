@@ -3,6 +3,8 @@
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HostelBookingController;
+use App\Http\Controllers\HostelSlotController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StudentController;
@@ -127,3 +129,13 @@ Route::post('/trainings/attendance', [TrainingController::class, 'storeAttendanc
 // Settings
 Route::get('/settings', [DetailController::class, 'index'])->middleware('admin')->name('settings.index');
 Route::post('/settings/update', [DetailController::class, 'update'])->middleware('admin')->name('settings.update');
+
+// Hostel Slots
+Route::get('/hostel', [HostelSlotController::class, 'index'])->name('hostel.index');
+Route::get('/hostel/{hostelSlot}/book', [HostelBookingController::class, 'create'])->name('hostel.book');
+
+Route::get('/hostel/create', [HostelSlotController::class, 'create'])->middleware('admin')->name('hostel.create');
+Route::post('/hostel/store', [HostelSlotController::class, 'store'])->middleware('admin')->name('hostel.store');
+Route::get('/hostel/{hostelSlot}/close', [HostelSlotController::class, 'close'])->middleware('admin')->name('hostel.close');
+Route::get('/hostel/{hostelSlot}/delete', [HostelSlotController::class, 'delete'])->middleware('admin')->name('hostel.delete');
+Route::get('/hostel/{hostelSlot}', [HostelSlotController::class, 'show'])->middleware('admin')->name('hostel.show');
