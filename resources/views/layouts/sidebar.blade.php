@@ -3,7 +3,9 @@
     <aside class="list-group position-fixed top-0 left-0" style="width:20%; height:100vh;">
 
         <div class="brand-link text-center display-6 list-group-item">
-            <span class="brand-text font-weight-light">GCTC</span>
+            <span class="brand-text font-weight-light">
+                <a href="{{ route('landing') }}" class="text-black text-decoration-none">GCTC</a>
+            </span>
         </div>
 
 

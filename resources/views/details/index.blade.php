@@ -13,6 +13,7 @@
                 </div>
                 <div class="card-body d-flex flex-column gap-2 overflow-scroll">
                     <a href="#{{ $about_us->key }}" class="btn btn-link">{{ $about_us->title }}</a>
+                    <a href="#{{ $location->key }}" class="btn btn-link">{{ $location->title }}</a>
                     <h4 class="text-center">Contact Details</h4>
                     @foreach($contactDetails as $detail)
                     <a href="#{{ $detail->key }}" class="btn btn-link">{{ $detail->title }}</a>
@@ -52,6 +53,17 @@
                             <textarea id="{{ $about_us->key }}_value" type="text" class="form-control mb-2" name="value" rows="10" placeholder="{{ $about_us->title }}" required>{{ $about_us->value }}</textarea>
                         @else
                             <input id="{{ $about_us->key }}_value" type="text" class="form-control mb-2" name="value" value="{{ $about_us->value }}" placeholder="{{ $about_us->title }} Caption" required />
+                        @endif
+                        <button type="submit" class="btn btn-primary w-100">Update</button>
+                    </form>
+                    <form class="form-group mb-4" action="{{ route('settings.update') }}" method="POST" id="{{ $location->key }}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="key" value="{{ $location->key }}">
+                        <label for="{{ $location->key }}_value" class="col-form-label text-md-right fw-bolder">{{ $location->title }}</label>
+                        @if($location->type == 'text')
+                            <textarea id="{{ $location->key }}_value" type="text" class="form-control mb-2" name="value" rows="6" placeholder="{{ $location->title }}" required>{{ $location->value }}</textarea>
+                        @else
+                            <input id="{{ $location->key }}_value" type="text" class="form-control mb-2" name="value" value="{{ $location->value }}" placeholder="{{ $location->title }} Caption" required />
                         @endif
                         <button type="submit" class="btn btn-primary w-100">Update</button>
                     </form>

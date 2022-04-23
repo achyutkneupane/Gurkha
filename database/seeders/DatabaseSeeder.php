@@ -38,5 +38,6 @@ class DatabaseSeeder extends Seeder
         $updates = Update::factory(20)->make();
         $admin->news()->saveMany($updates);
         $this->call(DetailSeeder::class);
+        $this->call(TrainingSeeder::class);
     }
 }

@@ -105,5 +105,13 @@ class DetailSeeder extends Seeder
             'type' => 'string',
             'value' => 'https://vm.tiktok.com/ZSdhfPNyo/'
         ]);
+
+        // map link
+        Detail::create([
+            'key' => 'map_link',
+            'title' => 'Map Link',
+            'type' => 'text',
+            'value' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d403.12553143273993!2d87.2654398540936!3d26.81519830533987!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef41fd93131821%3A0xcc81ab5225813dd7!2sGurkha%20Company%20Training%20Centre!5e0!3m2!1sen!2snp!4v1650708395436!5m2!1sen!2snp'
+        ]);
     }
 }

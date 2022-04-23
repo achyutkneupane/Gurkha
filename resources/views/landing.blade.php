@@ -43,7 +43,7 @@
                 <div class="col-md-3">
                     <div class="card" style="width: 18rem;">
                         <img src="{{ $detail->image? asset(Storage::url($detail->image)): 'https://mapandan.gov.ph/wp-content/uploads/2018/03/no_image.jpg' }}"
-                            class="card-img-top" alt="{{ $detail->title }}">
+                            class="card-img-top" alt="{{ $detail->title }}" height="250">
                         <div class="card-body">
                             <h5 class="card-title text-center">{{ $detail->title }}</h5>
                             <p class="card-text text-center">{{ $detail->value }}</p>
@@ -72,6 +72,19 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="text-center mb-5">
+                    We are located
+                </h2>
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item w-100" src="{{ $location->value }}"
+                        height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
                 </div>
             </div>
         </div>
