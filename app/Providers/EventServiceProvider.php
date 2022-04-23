@@ -7,7 +7,7 @@ use App\Observers\HostelSlotObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-
+use Illuminate\Support\Facades\Schema;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -29,7 +29,9 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        HostelSlot::where('form_close_time', '<', now())->update(['open' => false]);
+        if(Schema::hasTable('hostel_slots')) {
+            HostelSlot::where('form_close_time', '<', now())->update(['open' => false]);
+        }
     }
 
     /**
