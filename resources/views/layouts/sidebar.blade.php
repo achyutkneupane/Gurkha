@@ -1,3 +1,4 @@
+@if(!request()->routeIs('landing'))
 @auth
     <aside class="list-group position-fixed top-0 left-0" style="width:20%; height:100vh;">
 
@@ -15,24 +16,28 @@
                 <ul class="list-group" data-widget="treeview" role="menu" data-accordion="false">
                     <a class="list-group-item{{ request()->routeIs('home') ? ' active' : '' }}"
                         href="{{ route('home') }}">
-                        <i class="fas fa-home"></i> Dashboard
+                        <i class="fas fa-lg fa-home"></i> Dashboard
                     </a>
                     <a class="list-group-item{{ request()->routeIs('profile.*') ? ' active' : '' }}"
                         href="{{ route('profile.index') }}">
-                        <i class="fas fa-user"></i> Profile
+                        <i class="fas fa-lg fa-user"></i> Profile
                     </a>
                     <a class="list-group-item{{ request()->routeIs('news.*') ? ' active' : '' }}"
                         href="{{ route('news.index') }}">
-                        <i class="fas fa-newspaper"></i> News
+                        <i class="fas fa-lg fa-newspaper"></i> News
                     </a>
                     <a class="list-group-item{{ request()->routeIs('chats.*') ? ' active' : '' }}"
                         href="{{ route('chats.index') }}">
-                        <i class="fas fa-comment"></i> Chats
+                        <i class="fas fa-lg fa-comment"></i> Chats
                     </a>
                     @if (auth()->user()->role == 'user')
+                        <a class="list-group-item{{ request()->routeIs('hostel.*') ? ' active' : '' }}"
+                            href="{{ route('hostel.index') }}">
+                            <i class="fas fa-lg fa-bed"></i> Hostel
+                        </a>
                         <a class="list-group-item{{ request()->routeIs('notifications.*') ? ' active' : '' }}"
                             href="{{ route('notifications.index') }}">
-                            <i class="fas fa-bell"></i> Notifications
+                            <i class="fas fa-lg fa-bell"></i> Notifications
                             @if (auth()->user()->unreadNotificationsCount() > 0)
                                 <span
                                     class="badge badge-danger bg-danger">{{ auth()->user()->unreadNotificationsCount() }}</span>
@@ -42,23 +47,31 @@
                     @if (auth()->user()->role == 'admin')
                         <a class="list-group-item{{ request()->routeIs('staffs.*') ? ' active' : '' }}"
                             href="{{ route('staffs.index') }}">
-                            <i class="fas fa-users-cog"></i> Staffs
+                            <i class="fas fa-lg fa-users-cog"></i> Staffs
                         </a>
                     @endif
                     @if (auth()->user()->role == 'staff')
                         <a class="list-group-item{{ request()->routeIs('students.*') ? ' active' : '' }}"
                             href="{{ route('students.index') }}">
-                            <i class="fas fa-user-graduate"></i> Students
+                            <i class="fas fa-lg fa-user-graduate"></i> Students
                         </a>
                     @endif
                     @if (auth()->user()->role == 'admin')
                         <a class="list-group-item{{ request()->routeIs('users.*') ? ' active' : '' }}"
                             href="{{ route('users.index') }}">
-                            <i class="fas fa-users"></i> Users
+                            <i class="fas fa-lg fa-users"></i> Users
+                        </a>
+                        <a class="list-group-item{{ request()->routeIs('hostel.*') ? ' active' : '' }}"
+                            href="{{ route('hostel.index') }}">
+                            <i class="fas fa-lg fa-bed"></i> Hostel Slots
                         </a>
                         <a class="list-group-item{{ request()->routeIs('trainings.*') ? ' active' : '' }}"
                             href="{{ route('trainings.index') }}">
-                            <i class="fas fa-running"></i> Trainings
+                            <i class="fas fa-lg fa-running"></i> Trainings
+                        </a>
+                        <a class="list-group-item{{ request()->routeIs('settings.*') ? ' active' : '' }}"
+                            href="{{ route('settings.index') }}">
+                            <i class="fas fa-lg fa-gear"></i> Settings
                         </a>
                     @endif
                 </ul>
@@ -68,7 +81,7 @@
             <a class="list-group-item list-group-item-action list-group-item-danger" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                                                   document.getElementById('logout-form').submit();">
-                <i class="fas fa-sign-out-alt"></i> Logout
+                <i class="fas fa-lg fa-sign-out-alt"></i> Logout
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
@@ -76,3 +89,4 @@
         </div>
     </aside>
 @endauth
+@endif

@@ -1,3 +1,4 @@
+@if(!request()->routeIs('landing'))
 @auth
 <footer class="w-100 border bg-white py-3 position-fixed bottom-0 text-end">
     <div class="d-none d-sm-inline">
@@ -6,3 +7,4 @@
     </div>
 </footer>
 @endauth
+@endif

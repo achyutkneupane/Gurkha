@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\DetailController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HostelBookingController;
+use App\Http\Controllers\HostelSlotController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StudentController;
@@ -22,13 +25,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [HomeController::class, 'landing'])->name('landing');
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 Route::get('delete/{from}/{id}', [HomeController::class, 'delete_user'])
     ->middleware('adminOrStaff')
     ->name('profile.delete');
 
 Auth::routes();
-
-Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Profile
 
@@ -122,3 +125,17 @@ Route::post('/trainings/store', [TrainingController::class, 'store'])->middlewar
 Route::get('/trainings/{training}', [TrainingController::class, 'show'])->middleware('admin')->name('trainings.show');
 Route::get('/trainings/{training}/attendance', [TrainingController::class, 'attendance'])->middleware('admin')->name('trainings.attendance');
 Route::post('/trainings/attendance', [TrainingController::class, 'storeAttendance'])->middleware('admin')->name('trainings.attendance.store');
+
+// Settings
+Route::get('/settings', [DetailController::class, 'index'])->middleware('admin')->name('settings.index');
+Route::post('/settings/update', [DetailController::class, 'update'])->middleware('admin')->name('settings.update');
+
+// Hostel Slots
+Route::get('/hostel', [HostelSlotController::class, 'index'])->name('hostel.index');
+Route::get('/hostel/{hostelSlot}/book', [HostelBookingController::class, 'create'])->name('hostel.book');
+
+Route::get('/hostel/create', [HostelSlotController::class, 'create'])->middleware('admin')->name('hostel.create');
+Route::post('/hostel/store', [HostelSlotController::class, 'store'])->middleware('admin')->name('hostel.store');
+Route::get('/hostel/{hostelSlot}/close', [HostelSlotController::class, 'close'])->middleware('admin')->name('hostel.close');
+Route::get('/hostel/{hostelSlot}/delete', [HostelSlotController::class, 'delete'])->middleware('admin')->name('hostel.delete');
+Route::get('/hostel/{hostelSlot}', [HostelSlotController::class, 'show'])->middleware('admin')->name('hostel.show');

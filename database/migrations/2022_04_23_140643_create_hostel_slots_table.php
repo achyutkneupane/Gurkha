@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('details', function (Blueprint $table) {
+        Schema::create('hostel_slots', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
-            $table->string('title');
-            $table->string('image')->nullable();
-            $table->enum('type',array('string','text'))->default('string');
-            $table->text('value');
+            $table->date('from_date');
+            $table->date('to_date');
+            $table->dateTime('form_close_time');
+            $table->boolean('open')->default(true);
+            $table->integer('capacity');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('details');
+        Schema::dropIfExists('hostel_slots');
     }
 };
