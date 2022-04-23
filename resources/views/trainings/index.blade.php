@@ -95,7 +95,7 @@
                                     </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="6">No Trainings created</td>
+                                    <td colspan="7" class="text-center">No Trainings created</td>
                                 </tr>
                                 @endforelse
                             </tbody>

@@ -1,3 +1,4 @@
+@if(!request()->routeIs('landing'))
 @auth
     <aside class="list-group position-fixed top-0 left-0" style="width:20%; height:100vh;">
 
@@ -60,6 +61,10 @@
                             href="{{ route('trainings.index') }}">
                             <i class="fas fa-running"></i> Trainings
                         </a>
+                        <a class="list-group-item{{ request()->routeIs('settings.*') ? ' active' : '' }}"
+                            href="{{ route('settings.index') }}">
+                            <i class="fas fa-gear"></i> Settings
+                        </a>
                     @endif
                 </ul>
             </nav>
@@ -76,3 +81,4 @@
         </div>
     </aside>
 @endauth
+@endif

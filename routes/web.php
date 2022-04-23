@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\DetailController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\StaffController;
@@ -22,13 +23,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [HomeController::class, 'landing'])->name('landing');
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 Route::get('delete/{from}/{id}', [HomeController::class, 'delete_user'])
     ->middleware('adminOrStaff')
     ->name('profile.delete');
 
 Auth::routes();
-
-Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Profile
 
@@ -122,3 +123,7 @@ Route::post('/trainings/store', [TrainingController::class, 'store'])->middlewar
 Route::get('/trainings/{training}', [TrainingController::class, 'show'])->middleware('admin')->name('trainings.show');
 Route::get('/trainings/{training}/attendance', [TrainingController::class, 'attendance'])->middleware('admin')->name('trainings.attendance');
 Route::post('/trainings/attendance', [TrainingController::class, 'storeAttendance'])->middleware('admin')->name('trainings.attendance.store');
+
+// Settings
+Route::get('/settings', [DetailController::class, 'index'])->middleware('admin')->name('settings.index');
+Route::post('/settings/update', [DetailController::class, 'update'])->middleware('admin')->name('settings.update');

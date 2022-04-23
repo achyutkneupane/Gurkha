@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('key');
             $table->string('title');
-            $table->string('value');
+            $table->string('image')->nullable();
+            $table->enum('type',array('string','text'))->default('string');
+            $table->text('value');
             $table->timestamps();
         });
     }
