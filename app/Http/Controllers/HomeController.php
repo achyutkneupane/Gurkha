@@ -38,7 +38,8 @@ class HomeController extends Controller
             $item->key = str_replace('social_','',$item->key);
             return $item;
         });
-        return view('landing',compact('carousels','armyDetails','about_us','contactNumber','contactEmail','socialDetails'));
+        $location = Detail::where('key','map_link')->first();
+        return view('landing',compact('carousels','armyDetails','about_us','contactNumber','contactEmail','socialDetails','location'));
     }
 
     /**
