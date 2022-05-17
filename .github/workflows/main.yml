@@ -22,8 +22,8 @@ jobs:
         run: heroku git:remote -a $HEROKU_APP_NAME
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-      - name: Unshallow if shallow clone
-        run: git fetch --all --unshallow
+#       - name: Unshallow if shallow clone
+#         run: git fetch --all --unshallow
       - name: Push to Heroku
         run: git push heroku main --force
       - name: Compile CSS and JavaScript
