@@ -3,7 +3,7 @@ name: Main Deploy
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
@@ -22,7 +22,7 @@ jobs:
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       - name: Push to Heroku
-        run: git push heroku main
+        run: git push heroku master
       - name: Install dependencies
         run: composer install --ignore-platform-reqs #temporary until update tymon package
 
