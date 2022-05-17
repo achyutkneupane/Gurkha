@@ -14,34 +14,21 @@ jobs:
         run: git branch
       - name: Get Remote Branches
         run: git branch -r
+      - name: Install dependencies
+        run: composer install --ignore-platform-reqs #temporary until update tymon package
+      - name: Compile CSS and JavaScript
+        run: |
+          npm install
+          npm run production
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout Action
-#         uses: actions/checkout@v2
-#       - name: Github Actions to Heroku
-#         uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
-#         with:
-#           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-#           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }} #Must be unique in Heroku
-#           heroku_email: "achyutkneupane@gmail.com"
-#       - name: Add Heroku remote
-#         run: heroku git:remote -a $HEROKU_APP_NAME
-#         env:
-#           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-#       - name: Push to Heroku
-#         run: git push heroku main
-#       - name: Install dependencies
-#         run: composer install --ignore-platform-reqs #temporary until update tymon package
-
-#       - name: Compile CSS and JavaScript
-#         run: |
-#           npm install
-#           npm run production
+      - name: Add Heroku remote
+        run: heroku git:remote -a $HEROKU_APP_NAME
+        env:
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+      - name: Push to Heroku
+        run: git push heroku main
