@@ -1,15 +1,19 @@
-name: Master Deploy
+name: Main Deploy
 
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   heroku-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+      - name: Get Branches
+        run: git branch
+      - name: Get Remote Branches
+        run: git branch -r
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
