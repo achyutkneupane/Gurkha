@@ -21,15 +21,18 @@ jobs:
         env:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
       - name: Push to Heroku
-        run: git push heroku main --force
-      - name: Install dependencies
-        run: composer install --ignore-platform-reqs #temporary until update tymon package
+        run: git fetch --all --unshallow
+             git push heroku main --force
       - name: Compile CSS and JavaScript
         run: |
           npm install
           npm run production
       - name: Copy .env
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+#         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+        run: FILE=.env
+            if [ -f "$FILE" ]; then
+            echo "$FILE exists."
+            fi
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Generate key
