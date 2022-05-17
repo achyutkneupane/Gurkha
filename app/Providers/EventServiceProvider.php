@@ -29,9 +29,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if(Schema::hasTable('hostel_slots')) {
-            HostelSlot::where('form_close_time', '<', now())->update(['open' => false]);
-        }
+        //
     }
 
     /**
