@@ -14,9 +14,15 @@ jobs:
         uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "test-achyut" #Must be unique in Heroku
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }} #Must be unique in Heroku
           heroku_email: "achyutkneupane@gmail.com"
           remote_branch: "main"
+      - name: Add Heroku remote
+        run: heroku git:remote --app $HEROKU_APP_NAME
+        env:
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+      - name: Push to Heroku
+        run: git push heroku main
       - name: Install dependencies
         run: composer install --ignore-platform-reqs #temporary until update tymon package
 
