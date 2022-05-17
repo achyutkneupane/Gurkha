@@ -16,6 +16,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "test-achyut" #Must be unique in Heroku
           heroku_email: "achyutkneupane@gmail.com"
+          branch: "master"
       - name: Install dependencies
         run: composer install --ignore-platform-reqs #temporary until update tymon package
 
