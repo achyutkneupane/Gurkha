@@ -10,10 +10,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-      - name: Get Branches
-        run: git branch
-      - name: Get Remote Branches
-        run: git branch -r
+      - name: Copy .env file
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Install dependencies
         run: composer install --ignore-platform-reqs #temporary until update tymon package
       - name: Compile CSS and JavaScript
