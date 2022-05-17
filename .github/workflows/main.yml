@@ -19,22 +19,14 @@ jobs:
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
       - name: Add Heroku remote
-        run: heroku git:remote -a $HEROKU_APP_NAME
-        env:
-          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-#       - name: Unshallow if shallow clone
-#         run: git fetch --all --unshallow
+        run: heroku git:remote -a ${{ secrets.HEROKU_APP_NAME }}
       - name: Push to Heroku
         run: git push heroku main --force
       - name: Compile CSS and JavaScript
         run: |
           npm install
           npm run production
-      - name: Copy .env
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Update Dependencies
         run: composer update -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-      - name: Generate key
-        run: php artisan key:generate
